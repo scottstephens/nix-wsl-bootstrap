@@ -41,6 +41,7 @@ $installFolder = Get-Input -prompt "Install Folder" -default "$env:USERPROFILE\W
 $url = "https://github.com/yuk7/AlpineWSL/releases/latest/download/Alpine.zip"
 $outputPath = Get-Good-Temp-File-Path -baseName "Alpine" -extension "zip"
 $extractPath = $installFolder
+$alpine = "$extractPath\$wslDistroName.exe"
 
 $webClient = New-Object System.Net.WebClient
 $webClient.DownloadFile($url, $outputPath)
@@ -55,9 +56,12 @@ if ($wslDistroName -ne "Alpine") {
 }
 
 Remove-Item $outputPath
-$alpine = "$extractPath\$wslDistroName.exe"
+
 & $alpine
 
-wsl -d $wslDistroName --user root ./initialize-root.sh $nixUser "$nixUserFullName" "$env:USERPROFILE"
+wsl -d $wslDistroName --user root ./initialize-root.sh $nixUser "$nixUserFullName" "`"$env:USERPROFILE`""
+wsl --shutdown
+wsl -d $wslDistroName --user $nixUser ./initialize-user-1.sh
+wsl -d $wslDistroName --user $nixUser bash --login -c `"./initialize-user-2.sh \`""$env:USERPROFILE"\`"`"
 
 & $alpine config --default-user $nixUser

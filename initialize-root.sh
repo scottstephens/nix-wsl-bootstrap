@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
+echo "Arguments: $1 $2 $3"
+
 nix_user=$1
 nix_user_fullname=$2
-windows_user_profile=wslpath "$3"
+windows_user_profile=`wslpath "$3"`
+
+echo "windows_user_profile $windows_user_profile"
 
 adduser -g "$nix_user_fullname" "$nix_user" -D
 adduser "$nix_user" wheel
@@ -12,6 +16,9 @@ echo '%wheel ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/wheel
 mkdir -m 0755 /nix
 chown "$nix_user" /nix
 
-su "$nix_user" -c 'sh <(curl -L https://nixos.org/nix/install) --no-daemon'
-su "$nix_user" -c "echo \". /home/$nix_user/.nix-profile/etc/profile.d/nix.sh\" >> ~/.profile"
-su "$nix_user" -l -c "initialize-user.sh $windows_user_profile"
+our_uid=`id -u "$nix_user"`
+our_gid=`id -g "$nix_user"`
+echo "[automount]" > /etc/wsl.conf
+echo "options=uid=$our_uid,gid=$our_gid,umask=000,fmask=000,dmask=000" >> /etc/wsl.conf
+
+echo "Done with initialize-root.sh"
