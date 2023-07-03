@@ -2,7 +2,7 @@
 
 ## Intro
 
-This project aims to make it easy to get a Nix development environment up and running on Windows 11.
+This project aims to make it easy to get a Nix development environment up and running on Windows 11. You run a powershell script, answer four questions (that come with sane defaults if you're not picky) and in a few minutes you'll have a WSL setup ready to clone repos and do Nix builds.
 
 It does so by
 1. Installing Alpine linux into the Windows Subsystem for Linux 2 (hereafter, WSL)
@@ -27,7 +27,7 @@ It does so by
    3. What you'd like to name your WSL distribution.
    4. The folder in which you'd like to place your WSL distro.
    
-   Sane defaults are provided for all of these, you will probably only need to press enter 4 times.
+   Sane defaults are provided for all of these, if you're not picky you will only need to press enter 4 times.
 
 5. After the installation is finished, enter WSL in the usual manner. If it's your only WSL distribution, all you need is `wsl`. If you have another installed, you'll need `wsl -d Alpine`. If you have another installed and you didn't accept the default distro name, you need `wsl -d WhateverYouNamedYourDistro`. To get root access use `wsl --user root`.
 
