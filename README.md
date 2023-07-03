@@ -29,7 +29,7 @@ It does so by
    
    Sane defaults are provided for all of these, you will probably only need to press enter 4 times.
 
-5. After the installation is finished, enter WSL in the usual manner. If it's your only WSL distribution, all you need is `WSL`. If you have another installed, you'll need `wsl -d Alpine`. If you have another installed and you didn't accept the default distro name, you need `wsl -d WhateverYouNamedYourDistro`.
+5. After the installation is finished, enter WSL in the usual manner. If it's your only WSL distribution, all you need is `wsl`. If you have another installed, you'll need `wsl -d Alpine`. If you have another installed and you didn't accept the default distro name, you need `wsl -d WhateverYouNamedYourDistro`. To get root access use `wsl --user root`.
 
 6. Once in the WSL environment, you're ready to git clone any repos you want to work with, and use nix commands to build them.
 
@@ -45,11 +45,11 @@ I tried it. It kept breaking when upgraded. Bootstrapping the config to the poin
 
 ### Alpine
 
-Basically because it's the most minimal WSL distro that seems commonly used with WSL. I probably would have preferred a minimal glibc based distro, but there isn't one that's particularly popular in combination with WSL.
+Basically because it's the most minimal commonly used WSL distro. I probably would have preferred a minimal glibc based distro, but there isn't one that's particularly popular in combination with WSL.
 
 ### Single-User Nix Install
 
-WSL is inherently single-user, so the benefit of safe non-root-user program installation is not useful there. And the init system is a bespoke beast, so setting up daemons to run didn't sound like fun.
+WSL is inherently single-user, so the benefit of safe non-root-user program installation is not useful there. Also I didn't particularly feel like figuring out the weird init system enough to get a daemon to run.
 
 ### Enabling nix-command and flakes
 
