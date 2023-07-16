@@ -19,7 +19,7 @@ apk add sudo shadow curl xz
 echo "Configuring passwordless sudo for wheel members"
 echo '%wheel ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/wheel
 
-if [ "$multi_user" != "Y" ]; then
+if [ "$multi_user" != "y" ]; then
     echo "creating /nix and setting permissions suitable for single user nix installation"
     mkdir -m 0755 /nix
     chown "$nix_user" /nix

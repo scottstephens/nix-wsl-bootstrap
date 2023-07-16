@@ -37,7 +37,7 @@ $nixUser = Get-Input -prompt "Linux username" -default $windowsUserName
 $nixUserFullName = Get-Input -prompt "User's Full Name" -default $fullName
 $wslDistroName = Get-Input -prompt "WSL Distro Name" -default "Alpine"
 $installFolder = Get-Input -prompt "Install Folder" -default "$env:USERPROFILE\WSL\$wslDistroName"
-$multiUser = Get-Input -prompt "Multiuser installation? (Y or N)" -default "Y"
+$multiUser = Get-Input -prompt "Multiuser installation? (y or n)" -default "y"
 
 $url = "https://github.com/yuk7/AlpineWSL/releases/latest/download/Alpine.zip"
 $outputPath = Get-Good-Temp-File-Path -baseName "Alpine" -extension "zip"
