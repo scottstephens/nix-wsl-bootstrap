@@ -17,7 +17,6 @@ create_symlink() {
 
 echo "Waiting for nix-daemon to start"
 if [ $multi_user = "Y" ]; then
-  # Wait for the notification daemon to finish launching
   while ! pgrep -f "nix-daemon" > /dev/null; do
       sleep 0.1
   done
