@@ -30,5 +30,6 @@ our_uid=`id -u "$nix_user"`
 our_gid=`id -g "$nix_user"`
 echo "[automount]" > /etc/wsl.conf
 echo "options=uid=$our_uid,gid=$our_gid,umask=000,fmask=000,dmask=000" >> /etc/wsl.conf
+echo "" >> /etc/wsl.conf
 
 echo "Done with initialize-root.sh"
