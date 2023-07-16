@@ -72,11 +72,12 @@ wsl --shutdown
 
 Write-Output "Running initialize-user-1.sh"
 wsl -d $wslDistroName --user $nixUser ./initialize-user-1.sh $multiUser
+wsl --shutdown
 
-# Write-Output "Running initialize-user-2.sh"
-# wsl -d $wslDistroName --user $nixUser bash --login -c `"./initialize-user-2.sh \`""$env:USERPROFILE"\`"`" $multiUser
+Write-Output "Running initialize-user-2.sh"
+wsl -d $wslDistroName --user $nixUser bash --login -c `"./initialize-user-2.sh \`""$env:USERPROFILE"\`" $multiUser `"
 
-# Write-Output "Configuring default username for WSL"
-# & $alpine config --default-user $nixUser
+Write-Output "Configuring default username for WSL"
+& $alpine config --default-user $nixUser
 
-# Write-Output "Done!"
+Write-Output "Done!"

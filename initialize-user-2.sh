@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-echo "Starting initialize-user-2.sh with arguments '$1'"
+echo "Starting initialize-user-2.sh with arguments '$1' '$2'"
 
 windows_user_profile=`wslpath "$1"`
+multi_user=$2
 
 echo "Linux path to windows user profile: $windows_user_profile"
 
@@ -14,6 +15,15 @@ create_symlink() {
   ln -s "$file_path" "$dest_folder/$dest_name"
 }
 
+echo "Waiting for nix-daemon to start"
+if [ $multi_user = "Y" ]; then
+  # Wait for the notification daemon to finish launching
+  while ! pgrep -f "nix-daemon" > /dev/null; do
+      sleep 0.1
+  done
+fi
+
+echo "Installing basic packages"
 nix-env -i openssh git vim
 
 mkdir -p ~/.ssh

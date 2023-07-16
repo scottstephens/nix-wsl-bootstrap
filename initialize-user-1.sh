@@ -10,9 +10,12 @@ else
     daemon_arg="--no-daemon" 
 fi
 
-# echo "Installing Nix"
-# sh <(curl -L https://nixos.org/nix/install) $daemon_arg
-# echo ". /home/$USER/.nix-profile/etc/profile.d/nix.sh" >> ~/.profile
+echo "Installing Nix"
+sh <(curl -L https://nixos.org/nix/install) $daemon_arg
+
+if [ $multi_user != "Y" ]; then
+    echo ". /home/$USER/.nix-profile/etc/profile.d/nix.sh" >> ~/.profile
+fi
 
 echo "Creating nix config file"
 configContent="experimental-features = nix-command flakes"
@@ -37,4 +40,9 @@ $configContent
 EOF
 fi
 
-echo "Done with initialize-user-1.sh"
+echo "Configuring WSL to launx nix-daemon on boot"
+if [ $multi_user = "Y" ]; then
+    echo "[boot]" | sudo tee -a /etc/wsl.conf
+    echo "command = /nix/var/nix/profiles/default/bin/nix-daemon" | sudo tee -a /etc/wsl.conf
+    echo "" | sudo tee -a /etc/wsl.conf
+fi
