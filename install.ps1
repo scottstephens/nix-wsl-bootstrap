@@ -37,6 +37,7 @@ $nixUser = Get-Input -prompt "Linux username" -default $windowsUserName
 $nixUserFullName = Get-Input -prompt "User's Full Name" -default $fullName
 $wslDistroName = Get-Input -prompt "WSL Distro Name" -default "Alpine"
 $installFolder = Get-Input -prompt "Install Folder" -default "$env:USERPROFILE\WSL\$wslDistroName"
+$multiUser = Get-Input -prompt "Multiuser installation? (Y or N)" -default "Y"
 
 $url = "https://github.com/yuk7/AlpineWSL/releases/latest/download/Alpine.zip"
 $outputPath = Get-Good-Temp-File-Path -baseName "Alpine" -extension "zip"
@@ -64,18 +65,18 @@ Write-Output $nixUser
 Write-Output "$nixUserFullName"
 Write-Output "`"$env:USERPROFILE`""
 
-wsl -d $wslDistroName --user root ./initialize-root.sh $nixUser "$nixUserFullName" "`"$env:USERPROFILE`""
+wsl -d $wslDistroName --user root ./initialize-root.sh $nixUser "$nixUserFullName" "`"$env:USERPROFILE`"" $multiUser
 
 Write-Output "Done with initialize-root.sh, shutting down wsl"
 wsl --shutdown
 
 Write-Output "Running initialize-user-1.sh"
-wsl -d $wslDistroName --user $nixUser ./initialize-user-1.sh
+wsl -d $wslDistroName --user $nixUser ./initialize-user-1.sh $multiUser
 
-Write-Output "Running initialize-user-2.sh"
-wsl -d $wslDistroName --user $nixUser bash --login -c `"./initialize-user-2.sh \`""$env:USERPROFILE"\`"`"
+# Write-Output "Running initialize-user-2.sh"
+# wsl -d $wslDistroName --user $nixUser bash --login -c `"./initialize-user-2.sh \`""$env:USERPROFILE"\`"`" $multiUser
 
-Write-Output "Configuring default username for WSL"
-& $alpine config --default-user $nixUser
+# Write-Output "Configuring default username for WSL"
+# & $alpine config --default-user $nixUser
 
-Write-Output "Done!"
+# Write-Output "Done!"
