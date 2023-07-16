@@ -59,9 +59,23 @@ Remove-Item $outputPath
 
 & $alpine
 
+Write-Output "Done with distro install, starting initialize-root.sh"
+Write-Output $nixUser
+Write-Output "$nixUserFullName"
+Write-Output "`"$env:USERPROFILE`""
+
 wsl -d $wslDistroName --user root ./initialize-root.sh $nixUser "$nixUserFullName" "`"$env:USERPROFILE`""
+
+Write-Output "Done with initialize-root.sh, shutting down wsl"
 wsl --shutdown
+
+Write-Output "Running initialize-user-1.sh"
 wsl -d $wslDistroName --user $nixUser ./initialize-user-1.sh
+
+Write-Output "Running initialize-user-2.sh"
 wsl -d $wslDistroName --user $nixUser bash --login -c `"./initialize-user-2.sh \`""$env:USERPROFILE"\`"`"
 
+Write-Output "Configuring default username for WSL"
 & $alpine config --default-user $nixUser
+
+Write-Output "Done!"
