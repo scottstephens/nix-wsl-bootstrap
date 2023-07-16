@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "Starting initialize-user-1.sh"
+
 sh <(curl -L https://nixos.org/nix/install) --no-daemon
 echo ". /home/$USER/.nix-profile/etc/profile.d/nix.sh" >> ~/.profile
 

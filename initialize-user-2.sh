@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
-echo "Starting initialize-user-2.sh"
-echo "Arguments $1"
+echo "Starting initialize-user-2.sh with arguments '$1'"
 
 windows_user_profile=`wslpath "$1"`
 
-echo "windows_user_profile $windows_user_profile"
+echo "Linux path to windows user profile: $windows_user_profile"
 
 create_symlink() {
   local file_path="$1"
@@ -23,3 +22,5 @@ chmod 700 ~/.ssh
 export -f create_symlink
 
 find $windows_user_profile/.ssh -name id_* -exec bash --login -c 'create_symlink {} ~/.ssh' \;
+
+echo "Done with initialize-user-2.sh"
