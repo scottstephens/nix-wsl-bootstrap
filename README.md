@@ -2,12 +2,12 @@
 
 ## Intro
 
-This project aims to make it easy to get a Nix development environment up and running on Windows 11. You run a powershell script, answer four questions (that come with sane defaults if you're not picky) and in a few minutes you'll have a WSL setup ready to clone repos and do Nix builds.
+This project aims to make it easy to get a Nix development environment up and running on Windows 11. You run a powershell script, answer five questions (that come with sane defaults if you're not picky) and in a few minutes you'll have a WSL setup ready to clone repos and do Nix builds.
 
 It does so by
 1. Installing Alpine linux into the Windows Subsystem for Linux 2 (hereafter, WSL)
 2. Minimally configuring Alpine as necessary for installing Nix and conveniently using it.
-3. Installing Nix within the Alpine WSL distribution using a single-user install.
+3. Installing Nix within the Alpine WSL distribution.
 4. Configure the Nix installation and user profile in a somewhat opinionated but fairly lightweight manner:
    1. Enable the `nix-command` and `flakes` experimental features.
    2. Install ssh, git, and vim into the user profile.
@@ -26,8 +26,8 @@ It does so by
    2. Your full name.
    3. What you'd like to name your WSL distribution.
    4. The folder in which you'd like to place your WSL distro.
-   
-   Sane defaults are provided for all of these, if you're not picky you will only need to press enter 4 times.
+   5. Whether you'd like a multi-user or single-user install.
+   Sane defaults are provided for all of these, if you're not picky you will only need to press enter 5 times.
 
 5. After the installation is finished, enter WSL in the usual manner. If it's your only WSL distribution, all you need is `wsl`. If you have another installed, you'll need `wsl -d Alpine`. If you have another installed and you didn't accept the default distro name, you need `wsl -d WhateverYouNamedYourDistro`. To get root access use `wsl --user root`.
 
@@ -46,10 +46,6 @@ I tried it. It kept breaking when upgraded. Bootstrapping the config to the poin
 ### Alpine
 
 Basically because it's the most minimal commonly used WSL distro. I probably would have preferred a minimal glibc based distro, but there isn't one that's particularly popular in combination with WSL.
-
-### Single-User Nix Install
-
-WSL is inherently single-user, so the benefit of safe non-root-user program installation is not useful there. Also I didn't particularly feel like figuring out the weird init system enough to get a daemon to run.
 
 ### Enabling nix-command and flakes
 
