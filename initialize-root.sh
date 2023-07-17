@@ -16,7 +16,7 @@ adduser -g "$nix_user_fullname" "$nix_user" -D
 adduser "$nix_user" wheel
 
 echo "Installing packages"
-apk add sudo shadow curl xz
+apk add sudo shadow curl xz libstdc++
 
 echo "Configuring passwordless sudo for wheel members"
 echo '%wheel ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/wheel
