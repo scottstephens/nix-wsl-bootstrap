@@ -15,8 +15,8 @@ create_symlink() {
   ln -s "$file_path" "$dest_folder/$dest_name"
 }
 
-echo "Waiting for nix-daemon to start"
 if [ $multi_user = "y" ]; then
+  echo "Waiting for nix-daemon to start"
   while ! pgrep -f "nix-daemon" > /dev/null; do
       sleep 0.1
   done
