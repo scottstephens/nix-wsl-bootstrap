@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 echo "Starting initialize-user-2.sh with arguments '$1' '$2'"
 
 windows_user_profile=`wslpath "$1"`

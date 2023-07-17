@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 echo "In initialize-root.sh with arguments '$1' '$2' '$3' '$4'"
 
 nix_user=$1

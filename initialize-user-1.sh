@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 echo "Starting initialize-user-1.sh with arguments '$1'"
 
 multi_user=$1
