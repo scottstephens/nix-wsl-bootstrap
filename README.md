@@ -27,6 +27,7 @@ It does so by
    3. What you'd like to name your WSL distribution.
    4. The folder in which you'd like to place your WSL distro.
    5. Whether you'd like a multi-user or single-user install.
+
    Sane defaults are provided for all of these, if you're not picky you will only need to press enter 5 times.
 
 5. After the installation is finished, enter WSL in the usual manner. If it's your only WSL distribution, all you need is `wsl`. If you have another installed, you'll need `wsl -d Alpine`. If you have another installed and you didn't accept the default distro name, you need `wsl -d WhateverYouNamedYourDistro`. To get root access use `wsl --user root`.
@@ -35,13 +36,15 @@ It does so by
 
 ## Rationale
 
-WSL 2 is a goofy environment. At the core it is a virtualized Linux kernel, but it uses a custom init system, which makes it an awkward fit with distributions that rely heavily on systemd. This includes NixOS, Ubuntu, Debian, and Fedora, among many others. So if WSL is handling the kernel and init system, what else is left of these full featured distributions? Not much I care about, honestly. I'm not going to be running persistent services there. WSL isn't really designed to be used by different Windows users, so the user management stuff isn't useful. My selection of package versions and service orchestration is going to come from the Nix config associated with my development projects, not from the OS curation. So all I really want is nix, git, and ssh, and the config I need to use them. And that's exactly what this script gives you.
+WSL 2 is a goofy environment. At the core it is a virtualized Linux kernel, but it uses a custom init system, which makes it an awkward fit with distributions that rely heavily on systemd[^1]. This includes NixOS, Ubuntu, Debian, and Fedora, among many others. So if WSL is handling the kernel and init system, what else is left of these full featured distributions? Not much I care about, honestly. I'm not going to be running persistent services there. WSL isn't really designed to be used by different Windows users, so the user management stuff isn't useful. My selection of package versions and service orchestration is going to come from the Nix config associated with my development projects, not from the OS curation. So all I really want is nix, git, and ssh, and the config I need to use them. And that's exactly what this script gives you.
+
+[^1] Official systemd support was added to WSL Sep 21, 2022, starting with version 0.67.6, so systemd-reliant distributions should be getting better.
 
 ## Specific Design Choices
 
 ### Not using the NixOS WSL Distro
 
-I tried it. It kept breaking when upgraded. Bootstrapping the config to the point where you can clone a git repo and run a nix build was also more challenging.
+I tried it. It kept breaking when upgraded. Bootstrapping the config to the point where you can clone a git repo and run a nix build was also more challenging. Official systemd support has been added to WSL since I last tried NixOS-WSL, but there hasn't been a NixOS-WSL release since then (as of July 16, 2023).
 
 ### Alpine
 
