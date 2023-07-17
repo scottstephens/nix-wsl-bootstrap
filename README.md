@@ -38,7 +38,7 @@ It does so by
 
 WSL 2 is a goofy environment. At the core it is a virtualized Linux kernel, but it uses a custom init system, which makes it an awkward fit with distributions that rely heavily on systemd[^1]. This includes NixOS, Ubuntu, Debian, and Fedora, among many others. So if WSL is handling the kernel and init system, what else is left of these full featured distributions? Not much I care about, honestly. I'm not going to be running persistent services there. WSL isn't really designed to be used by different Windows users, so the user management stuff isn't useful. My selection of package versions and service orchestration is going to come from the Nix config associated with my development projects, not from the OS curation. So all I really want is nix, git, and ssh, and the config I need to use them. And that's exactly what this script gives you.
 
-[^1] Official systemd support was added to WSL Sep 21, 2022, starting with version 0.67.6, so systemd-reliant distributions should be getting better.
+[^1]: Official systemd support was added to WSL Sep 21, 2022, starting with version 0.67.6, so systemd-reliant distributions should be getting better.
 
 ## Specific Design Choices
 
